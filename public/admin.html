@@ -9,18 +9,26 @@
 </head>
 
 <body>
-    <h1>Admin Portal</h1>
-    <div id="admin-content" style="display: none;">
-        <button onclick="generateCode()">Generate Code</button>
-        <p id="code"></p>
+    <div class="content">
+        <h1>Admin Portal</h1>
+        <div id="admin-content" style="display: none;">
+            <button onclick="generateCode()">Generate Code</button>
+            <p id="code"></p>
 
-        <button onclick="toggleLock(true)">Lock System</button>
-        <button onclick="toggleLock(false)">Unlock System</button>
+            <button onclick="toggleLock(true)">Lock System</button>
+            <button onclick="toggleLock(false)">Unlock System</button>
 
-        <button onclick="resetAttendance()">Reset Attendance</button> <!-- New Button -->
+            <button onclick="resetAttendance()">Reset Attendance</button> <!-- New Button -->
 
-        <a href="/admin/download-attendance" download="attendance.xlsx">Download Attendance</a>
+            <a href="/admin/download-attendance" download="attendance.xlsx">Download Attendance</a>
+        </div>
     </div>
+
+    <!-- Footer Section -->
+    <footer>
+        <p>Made with ❤️ Sidharth P.L</p>
+        <img src="/assets/Frissco Creative Labs Logo PNG.png" alt="Company Logo" width="auto" height="25">
+    </footer>
 
     <script>
         const ADMIN_PASSWORD = "iamthebestrep"; // Use the same password as in server.js

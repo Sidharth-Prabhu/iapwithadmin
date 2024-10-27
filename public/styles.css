@@ -1,7 +1,7 @@
 /* styles.css */
 
 /* Universal Styles */
-body {
+html,body {
     font-family: 'Poppins', sans-serif;
     /* Modern font */
     margin: 0;
@@ -9,6 +9,9 @@ body {
     background-color: #e0f7fa;
     /* Light cyan background */
     color: #333;
+    display: flex;
+    height: 100%;
+    flex-direction: column;
 }
 
 h1 {
@@ -123,4 +126,20 @@ a {
 
 a:hover {
     text-decoration: underline;
+}
+.content {
+    flex: 1;
+    text-align: center;
+}
+
+/* Footer at the bottom */
+footer {
+    text-align: center;
+    padding: 10px;
+    background-color: #f1f1f1;
+    font-weight: bold;
+}
+
+footer img {
+    margin-top: 5px;
 }

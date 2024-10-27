@@ -9,17 +9,25 @@
 </head>
 
 <body>
-    <h1>Student Portal</h1>
-    <label for="code">Enter Code:</label>
-    <input type="text" id="code" maxlength="4" />
+    <div class="content">
+        <h1>Student Portal</h1>
+        <label for="code">Enter Code:</label>
+        <input type="text" id="code" maxlength="4" />
 
-    <label for="studentName">Select Name:</label>
-    <select id="studentName">
-        <option value="" disabled selected>Select your name</option>
-    </select>
+        <label for="studentName">Select Name:</label>
+        <select id="studentName">
+            <option value="" disabled selected>Select your name</option>
+        </select>
 
-    <button onclick="markAttendance()">Mark Attendance</button>
-    <p id="message"></p>
+        <button onclick="markAttendance()">Mark Attendance</button>
+        <p id="message"></p>
+    </div>
+
+    <!-- Footer Section -->
+    <footer>
+        <p>Made with ❤️ Sidharth P.L</p>
+        <img src="/assets/Frissco Creative Labs Logo PNG.png" alt="Company Logo" width="auto" height="25">
+    </footer>
 
     <script>
         async function fetchStudentNames() {
