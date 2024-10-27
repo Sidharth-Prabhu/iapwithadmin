@@ -15,8 +15,9 @@ const students = [
 ];
 
 app.use(express.json());
-app.use(express.static("public")); // Serves static files from the 'public' folder
+app.use(express.static("public"));
 
+// Route to serve the Admin Page
 app.get("/admin", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "admin.html"));
 });
@@ -60,8 +61,13 @@ app.post("/student/login", (req, res) => {
     return res.status(401).json({ message: "No active code. Please generate a code." });
   }
   if (code === randomCode && students.includes(studentName)) {
-    logAttendance(studentName);
-    res.json({ message: "Attendance recorded" });
+    try {
+      logAttendance(studentName);
+      res.json({ message: "Attendance recorded" });
+    } catch (error) {
+      console.error("Error logging attendance:", error.message);
+      res.status(500).json({ message: "Internal server error while logging attendance." });
+    }
   } else {
     res.status(401).json({ message: "Invalid code or student name" });
   }
@@ -71,35 +77,46 @@ app.post("/student/login", (req, res) => {
 app.post("/admin/reset-attendance", (req, res) => {
   const filePath = path.join(__dirname, "data", "attendance.xlsx");
 
-  if (fs.existsSync(filePath)) {
-    fs.unlinkSync(filePath);
-    res.json({ message: "Attendance data reset successfully" });
-  } else {
-    res.status(404).json({ message: "No attendance data found" });
+  try {
+    if (fs.existsSync(filePath)) {
+      fs.unlinkSync(filePath);
+      res.json({ message: "Attendance data reset successfully" });
+    } else {
+      res.status(404).json({ message: "No attendance data found" });
+    }
+  } catch (error) {
+    console.error("Error resetting attendance data:", error.message);
+    res.status(500).json({ message: "Internal server error while resetting attendance data." });
   }
 });
 
-// Function to Log Attendance into Excel
+// Function to Log Attendance into Excel with Error Handling
 function logAttendance(studentName) {
   const filePath = path.join(__dirname, "data", "attendance.xlsx");
 
-  let workbook;
-  let worksheet;
+  try {
+    let workbook;
+    let worksheet;
 
-  if (fs.existsSync(filePath)) {
-    workbook = xlsx.readFile(filePath);
-    worksheet = workbook.Sheets["Attendance"];
-  } else {
-    workbook = xlsx.utils.book_new();
-    worksheet = xlsx.utils.aoa_to_sheet([["Student Name", "Date"]]);
-    xlsx.utils.book_append_sheet(workbook, worksheet, "Attendance");
+    // If the file exists, load it; otherwise, create a new workbook
+    if (fs.existsSync(filePath)) {
+      workbook = xlsx.readFile(filePath);
+      worksheet = workbook.Sheets["Attendance"];
+    } else {
+      workbook = xlsx.utils.book_new();
+      worksheet = xlsx.utils.aoa_to_sheet([["Student Name", "Date"]]);
+      xlsx.utils.book_append_sheet(workbook, worksheet, "Attendance");
+    }
+
+    const date = new Date().toLocaleString();
+    xlsx.utils.sheet_add_aoa(worksheet, [[studentName, date]], { origin: -1 });
+    workbook.Sheets["Attendance"] = worksheet;
+
+    // Attempt to write to the file
+    xlsx.writeFile(workbook, filePath);
+  } catch (error) {
+    throw new Error(`Failed to log attendance for ${studentName}: ${error.message}`);
   }
-
-  const date = new Date().toLocaleString();
-  xlsx.utils.sheet_add_aoa(worksheet, [[studentName, date]], { origin: -1 });
-
-  workbook.Sheets["Attendance"] = worksheet;
-  xlsx.writeFile(workbook, filePath);
 }
 
 // Route for Admin to Download Attendance Log
