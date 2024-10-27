@@ -29,9 +29,13 @@ const students = [
 app.use(express.json());
 app.use(express.static("public")); // Serves static files from the 'public' folder
 
-const ADMIN_PASSWORD = "admin";  // Set your desired password here
+// Ensure 'data' directory exists
+const dataDir = path.join(__dirname, "data");
+if (!fs.existsSync(dataDir)) {
+    fs.mkdirSync(dataDir);
+}
 
-// Route to serve the Admin Page with password protection
+// Route to serve the Admin Page
 app.get("/admin", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "admin.html"));
 });
