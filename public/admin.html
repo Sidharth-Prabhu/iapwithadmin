@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Portal</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <h1>Admin Portal</h1>
+    <div id="admin-content" style="display: none;">
+        <button onclick="generateCode()">Generate Code</button>
+        <p id="code"></p>
+
+        <button onclick="toggleLock(true)">Lock System</button>
+        <button onclick="toggleLock(false)">Unlock System</button>
+
+        <button onclick="resetAttendance()">Reset Attendance</button> <!-- New Button -->
+
+        <a href="/admin/download-attendance" download="attendance.xlsx">Download Attendance</a>
+    </div>
+
+    <script>
+        const ADMIN_PASSWORD = "admin"; // Use the same password as in server.js
+
+        // Function to prompt for password
+        function checkPassword() {
+            const password = prompt("Please enter the admin password:");
+            if (password === ADMIN_PASSWORD) {
+                document.getElementById("admin-content").style.display = "block"; // Show the admin content
+            } else {
+                alert("Incorrect password! Access denied.");
+                window.location.href = "/"; // Redirect to the homepage if the password is incorrect
+            }
+        }
+
+        // Call password check on page load
+        window.onload = checkPassword;
+
+        async function generateCode() {
+            const res = await fetch("/admin/generate-code", { method: "POST" });
+            const data = await res.json();
+            document.getElementById("code").textContent = `Code: ${data.code}`;
+        }
+
+        async function toggleLock(lock) {
+            await fetch("/admin/lock-unlock", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ lock })
+            });
+            alert(lock ? "System locked" : "System unlocked");
+        }
+
+        async function resetAttendance() {
+            const res = await fetch("/admin/reset-attendance", { method: "POST" });
+            const data = await res.json();
+            alert(data.message);
+        }
+    </script>
+</body>
+
+</html>

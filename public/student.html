@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Student Portal</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <h1>Student Portal</h1>
+    <label for="code">Enter Code:</label>
+    <input type="text" id="code" maxlength="4" />
+
+    <label for="studentName">Select Name:</label>
+    <select id="studentName">
+        <option value="Alice">Alice</option>
+        <option value="Bob">Bob</option>
+        <option value="Charlie">Charlie</option>
+        <option value="Daisy">Daisy</option>
+    </select>
+
+    <button onclick="markAttendance()">Mark Attendance</button>
+    <p id="message"></p>
+
+    <script>
+        async function markAttendance() {
+            const code = document.getElementById("code").value;
+            const studentName = document.getElementById("studentName").value;
+            const res = await fetch("/student/login", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ code, studentName })
+            });
+
+            const data = await res.json();
+            document.getElementById("message").textContent = data.message;
+        }
+    </script>
+</body>
+
+</html>

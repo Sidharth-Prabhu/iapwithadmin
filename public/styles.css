@@ -1,0 +1,126 @@
+/* styles.css */
+
+/* Universal Styles */
+body {
+    font-family: 'Poppins', sans-serif;
+    /* Modern font */
+    margin: 0;
+    padding: 0;
+    background-color: #e0f7fa;
+    /* Light cyan background */
+    color: #333;
+}
+
+h1 {
+    text-align: center;
+    color: #00796b;
+    /* Teal color */
+    margin: 30px 0;
+    font-size: 2.5em;
+    /* Larger heading */
+}
+
+/* Container */
+.container {
+    width: 90%;
+    max-width: 450px;
+    /* Slightly wider for modern look */
+    margin: 0 auto;
+    padding: 30px;
+    /* Increased padding */
+    background: white;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+    /* Deeper shadow for depth */
+    border-radius: 16px;
+    /* More rounded corners */
+}
+
+/* Form Elements */
+label {
+    display: block;
+    margin: 20px 0 10px;
+    font-weight: bold;
+    color: #424242;
+    /* Darker shade for contrast */
+}
+
+input[type="text"],
+select {
+    width: 100%;
+    padding: 14px;
+    margin-bottom: 25px;
+    /* Increased spacing */
+    border: 1px solid #80deea;
+    /* Lighter border color */
+    border-radius: 12px;
+    /* More rounded input fields */
+    font-size: 18px;
+    max-width: auto;
+    /* Larger font size for readability */
+    box-shadow: inset 0 3px 6px rgba(0, 0, 0, 0.1);
+    /* Softer inner shadow */
+}
+
+input[type="text"]:focus,
+select:focus {
+    border-color: #009688;
+    /* Teal focus border */
+    outline: none;
+    box-shadow: 0 0 8px rgba(0, 150, 136, 0.5);
+    /* Highlight effect on focus */
+}
+/* Buttons */
+button {
+    background-color: #009688;
+    /* Teal button color */
+    color: white;
+    border: none;
+    padding: 16px 20px;
+    /* Increased vertical and horizontal padding */
+    border-radius: 12px;
+    /* Rounded button */
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s;
+    font-size: 18px;
+    /* Larger button text */
+    width: 90%;
+    /* Reduced width for a more compact look */
+    max-width: 350px;
+    /* Optional max-width for larger screens */
+    margin: 10px auto;
+    /* Centered alignment with automatic margins */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    /* Soft shadow for depth */
+}
+
+button:hover {
+    background-color: #00796b;
+    /* Darker teal on hover */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    /* Slightly deeper shadow on hover */
+}
+
+button:active {
+    transform: scale(0.95);
+}
+
+/* Message */
+#message {
+    text-align: center;
+    margin-top: 25px;
+    font-weight: bold;
+}
+
+/* Links */
+a {
+    color: #009688;
+    /* Teal link color */
+    text-decoration: none;
+    text-align: center;
+    display: block;
+    margin-top: 15px;
+}
+
+a:hover {
+    text-decoration: underline;
+}
