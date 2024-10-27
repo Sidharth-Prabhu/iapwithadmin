@@ -8,7 +8,23 @@ const PORT = 3000;
 
 let randomCode = "";   // Holds the generated code for students to log in
 let isLocked = false;  // Determines if login is allowed
-const students = ["Alice", "Bob", "Charlie", "Daisy"];  // Sample student list
+const students = [
+    "RASOOL M", "RATHISH P N", "RAVIKUMAR R", "REETHU NIVYAA V",
+    "RISHI M S", "RITESH M S", "ROHAN KUMAR E", "ROHIT R", 
+    "SABARINATHAN M", "SAGAR M", "SAHANNA B", "SAI VISHAL L N",
+    "SAILESH S", "SAINDHAVI S", "SAJEEV MRITHUL S", "SAM MESHAK P", 
+    "SAMYUKTHA J", "SANDHIYA L", "SANJANA B", "SANJAY J", "SANJAY M",
+    "SANJAY N", "SANJEEV G", "SANJEEV Y", "SANTHOSH P", "SANTHOSH R",
+    "SANTHOSH KUMAR S", "SANTHOSH PANDI M", "SARAN NITHISH S", "SARIKA V",
+    "SARUMATHI", "SARVESH D", "SEENUVASAN", "SHAANA ZAIMA S", "SHAILAJAA J",
+    "SHALINI G", "SHALINI SHAHANI C", "SHAMEENA M", "SHANDIYA S", "SHANJITHKRISHNA V",
+    "SHANKAR POOJA", "SHANMUGA KRISHNAN S M", "SHAMUGANATHAN S S", "SHARIKAA D",
+    "SHERIN FAURGANA S", "SHESHANK A", "SHIVANI S", "SHOBANA S", "SHREENANDH L S",
+    "SHRINIDHI MEENA PALANIAPPAN", "SHRIYA R", "SHRUTHI S S", "SHYAM FRANCIS T", "SHYLENDHAR M",
+    "SIDDHARTHA MARIAPPAN S", "SIDHARTH P L", "SINDHUJA M", "SIVAGURUNATHAN P",
+    "SOFIA M", "SORNESHVARAN D R"
+    // Include all students
+];
 
 app.use(express.json());
 app.use(express.static("public")); // Serves static files from the 'public' folder
@@ -20,15 +36,13 @@ app.get("/admin", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "admin.html"));
 });
 
-
-// Route to serve the Student Page
 app.get("/student", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "student.html"));
 });
 
-// Default route for the base URL
-app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "public", "index.html"));
+// Route to provide the student list
+app.get("/student/names", (req, res) => {
+  res.json({ names: students });
 });
 
 // Generate a Random 4-digit Code and Enable Student Login
@@ -100,7 +114,6 @@ function logAttendance(studentName) {
   // Write the updated workbook to the file
   xlsx.writeFile(workbook, filePath);
 }
-
 
 // Route for Admin to Download Attendance Log
 app.get("/admin/download-attendance", (req, res) => {
